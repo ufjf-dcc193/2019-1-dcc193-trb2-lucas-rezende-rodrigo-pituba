@@ -1,13 +1,10 @@
 package br.ufjf.dcc193.trb2lucas_rodrigo.controllers;
 
-import br.ufjf.dcc193.trb2lucas_rodrigo.models.Area;
 import br.ufjf.dcc193.trb2lucas_rodrigo.models.Avaliador;
 import br.ufjf.dcc193.trb2lucas_rodrigo.repository.AreaRepository;
 import br.ufjf.dcc193.trb2lucas_rodrigo.repository.AvaliadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * HomeController
