@@ -1,14 +1,26 @@
 package br.ufjf.dcc193.trb2lucas_rodrigo.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * Revisao
  */
+@Entity
 public class Revisao {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "REVISAO_ID")
     private Integer id;
+    @ManyToOne
     private Avaliador avaliador;
+    @ManyToOne
     private Trabalho trabalho;
     private Integer nota;
     private String descricao;

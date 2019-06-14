@@ -1,17 +1,35 @@
 package br.ufjf.dcc193.trb2lucas_rodrigo.models;
 
 import java.awt.geom.Area;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.ManyToAny;
 
 /**
  * Trabalho
  */
+@Entity
 public class Trabalho {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "TRABALHO_ID")
     private Integer id;
     private String titulo;
     private String descricao;
     private String url;
+    @ManyToOne
     private Area area;
+    @OneToMany(mappedBy = "trabalho")
+    private List<Revisao> revisoes;
 
     public Trabalho() {
     }
@@ -49,6 +67,20 @@ public class Trabalho {
      */
     public String getTitulo() {
         return titulo;
+    }
+
+    /**
+     * @return the revisoes
+     */
+    public List<Revisao> getRevisoes() {
+        return revisoes;
+    }
+
+    /**
+     * @param revisoes the revisoes to set
+     */
+    public void setRevisoes(List<Revisao> revisoes) {
+        this.revisoes = revisoes;
     }
 
     /**
