@@ -9,13 +9,11 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 @Controller
-public class AvaliadoresController {
-    @RequestMapping({ "/avaliadores" })
+public class TrabalhosController {
+    @RequestMapping({ "/trabalhos" })
     public ModelAndView index() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("avaliadores_list");
-        mv.addObject("nome", "Fulano");
-        mv.addObject("senha", "1234");
+        mv.setViewName("trabalhos_list");
         return mv;
     }
 }
