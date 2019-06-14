@@ -1,0 +1,35 @@
+<div th:replace="fragments/cabecalho :: cabecalho"></div>
+<div>
+    <h4>Avaliadores</h4>
+    <a class="btn btn-primary text-center" href= "avaliadores/cadastrar">Cadastrar Avaliador</a>
+</div>
+<br>
+<div th:if="${avaliadores == null}">
+    <span>Não existem avaliadores cadastrados</span>
+</div>
+<div th:if="${avaliadores != null}" class="text-center">
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nome Completo</th>
+        <th>Email</th>
+        <th>Areas de Conhecimento</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="avaliador: ${avaliadores}" th:object="${avaliador}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{nomeCompleto}"></td>
+        <td th:text="*{email}"></td>
+        <td th:each="area: *{areas}" th:text="${area} "> </td>
+        <td colspan="2">
+            <a class="btn btn-primary" href="avaliadores/editar/*{id}">Editar</a>
+            <a class="btn btn-danger" href="avaliadores/excluir/*{id}">Excluir</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+<div th:replace="fragments/rodape :: rodape"></div>
