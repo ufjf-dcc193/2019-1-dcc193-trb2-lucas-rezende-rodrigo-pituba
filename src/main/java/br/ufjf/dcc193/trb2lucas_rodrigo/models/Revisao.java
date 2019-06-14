@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 /**
  * Revisao
@@ -22,6 +24,8 @@ public class Revisao {
     private Avaliador avaliador;
     @ManyToOne
     private Trabalho trabalho;
+    @Min(0)
+    @Max(100)
     private Integer nota;
     private String descricao;
     @Enumerated

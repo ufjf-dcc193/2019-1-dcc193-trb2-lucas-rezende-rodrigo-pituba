@@ -1,6 +1,5 @@
 package br.ufjf.dcc193.trb2lucas_rodrigo.models;
 
-import java.awt.geom.Area;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,8 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 
-import org.hibernate.annotations.ManyToAny;
+import org.hibernate.validator.constraints.URL;
 
 /**
  * Trabalho
@@ -23,8 +23,11 @@ public class Trabalho {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "TRABALHO_ID")
     private Integer id;
+    @NotBlank
     private String titulo;
+    @NotBlank
     private String descricao;
+    @URL(protocol = "http")
     private String url;
     @ManyToOne
     private Area area;
