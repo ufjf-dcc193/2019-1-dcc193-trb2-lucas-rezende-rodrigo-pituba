@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TrabalhoRepository extends JpaRepository<Trabalho, Integer> {
-    List<Trabalho> findByAreaIn(List<Area> area);
+    List<Trabalho> findByArea(Area area);
 }

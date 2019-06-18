@@ -39,4 +39,15 @@ public class AreaController {
         return mv;
     }
 
+    @GetMapping("/ver-trabalhos.html/{id}")
+    public ModelAndView getTrabalhosPorArea(@PathVariable Integer id) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("trabalhos_por_area");
+        Area area = areaRepository.findById(id).get();
+        mv.addObject("trabalhos", trabalhoRepository.findByArea(area));
+        mv.addObject("area", area.getNome());
+        mv.addObject("contador", 0);
+        return mv;
+    }
+
 }
