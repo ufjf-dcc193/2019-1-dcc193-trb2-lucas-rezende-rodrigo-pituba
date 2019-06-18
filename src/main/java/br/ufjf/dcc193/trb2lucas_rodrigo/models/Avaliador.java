@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * Avaliador
@@ -37,6 +38,7 @@ public class Avaliador {
     @OneToMany(mappedBy = "avaliador")
     private List<Revisao> revisoes;
 
+    @NotEmpty
     @ManyToMany
     @JoinTable(name = "AVALIADOR_AREA_CONHECIMENTO", joinColumns = {
             @JoinColumn(name = "AVALIADOR_ID") }, inverseJoinColumns = { @JoinColumn(name = "AREA_ID") })
