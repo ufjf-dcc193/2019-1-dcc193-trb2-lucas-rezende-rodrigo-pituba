@@ -1,0 +1,28 @@
+<div th:replace="fragments/cabecalho :: cabecalho"></div>
+<div>
+    <h4>Minhas Areas de Trabalho</h4>
+    <a class="btn btn-primary text-center" th:href= "@{/avaliadores/editar/{id}(id = ${id})}">Editar meus Dados</a>
+</div>
+<br>
+<div th:if="${#lists.size(areas) == 0}" class="text-center">
+    <span>Você não possui Areas de conhecimento.</span>
+</div>
+<div th:if="${#lists.size(areas) != 0}" class="text-center">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="area: ${areas}" th:object="${area}">
+            <td th:text="*{nome}"></td>
+            <td colspan="2">
+                <a class="btn btn-primary" th:href= "@{./ver-trabalhos.html/{id}(id = *{id})}">Ver Trabalhos</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/rodape :: rodape"></div>
