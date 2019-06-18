@@ -15,10 +15,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 
-/**
- * HomeController
- */
-
 @Controller
 @RequestMapping({ "/avaliadores" })
 public class AvaliadoresController {
@@ -34,8 +30,6 @@ public class AvaliadoresController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("avaliadores_list");
         mv.addObject("avaliadores", avaliadorRepository.findAll());
-        mv.addObject("nome", "Fulano");
-        mv.addObject("senha", "1234");
         return mv;
     }
 

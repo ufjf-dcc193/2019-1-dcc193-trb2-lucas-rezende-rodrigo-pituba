@@ -27,7 +27,7 @@ public class Trabalho {
     private String titulo;
     @NotBlank
     private String descricao;
-    @URL(protocol = "http")
+    @URL(message = "É necessário seguir o protocolo http")
     private String url;
     @ManyToOne
     private Area area;
@@ -41,6 +41,7 @@ public class Trabalho {
         this.id = id;
         this.titulo = titulo;
         this.area = area;
+        this.url = url;
         this.descricao = descricao;
     }
 
