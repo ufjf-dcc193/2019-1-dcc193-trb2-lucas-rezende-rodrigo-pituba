@@ -1,13 +1,13 @@
 <div th:replace="fragments/cabecalho :: cabecalho"></div>
 <div>
     <h4>Avaliadores</h4>
-    <a class="btn btn-primary text-center" href= "avaliadores/cadastrar">Cadastrar Avaliador</a>
+    <a class="btn btn-primary text-center" th:href= "@{./cadastrar}">Cadastrar Avaliador</a>
 </div>
 <br>
-<div th:if="${avaliadores == null}">
+<div th:if="${#lists.size(avaliadores) == 0}" class="text-center">
     <span>Não existem avaliadores cadastrados</span>
 </div>
-<div th:if="${avaliadores != null}" class="text-center">
+<div th:if="${#lists.size(avaliadores) != 0}" class="text-center">
 <table class="table table-striped">
     <thead>
     <tr>
@@ -23,10 +23,10 @@
         <td th:text="*{id}"></td>
         <td th:text="*{nomeCompleto}"></td>
         <td th:text="*{email}"></td>
-        <td th:each="area: *{areas}" th:text="${area} "> </td>
+        <td> <span th:each="area: *{areas}" th:text="${area}">To deixando um easteregg só de zuera </span> </td>
         <td colspan="2">
-            <a class="btn btn-primary" href="avaliadores/editar/*{id}">Editar</a>
-            <a class="btn btn-danger" href="avaliadores/excluir/*{id}">Excluir</a>
+            <a class="btn btn-primary" th:href= "@{./editar/{id}(id = *{id})}">Editar</a>
+            <a class="btn btn-danger" th:href= "@{./excluir/{id}(id = *{id})}">Excluir</a>
         </td>
     </tr>
     </tbody>

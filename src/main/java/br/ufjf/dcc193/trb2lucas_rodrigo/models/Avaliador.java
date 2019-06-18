@@ -28,6 +28,7 @@ public class Avaliador {
     private Integer id;
     @NotBlank
     private String nomeCompleto;
+    @NotBlank
     @Email
     private String email;
     @NotBlank

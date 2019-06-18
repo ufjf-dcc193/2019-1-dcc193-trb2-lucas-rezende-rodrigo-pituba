@@ -1,0 +1,41 @@
+<div th:replace="fragments/cabecalho :: cabecalho"></div>
+<h4>Manter Avaliador</h4>
+
+<form th:action="@{/avaliadores/manter.html}" method="post" th:object="${avaliador}">
+    <input type="hidden" name="avaliadorId" th:field="*{id}">
+    <div class=" row form-group">
+        <div class="col-md-6">
+            <label>Nome Completo</label>
+            <input type="text" name="nomeCompleto" class="form-control" th:field="*{nomeCompleto}">
+            <strong th:if="${#fields.hasErrors('nomeCompleto')}" th:errors="*{nomeCompleto}"></strong>
+        </div>
+    </div>
+    <div class=" row form-group">
+        <div class="col-md-6">
+            <label>E-mail</label>
+            <input type="text" name="email" class="form-control" th:field="*{email}">
+            <strong th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></strong>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-6">
+            <label>Senha</label>
+            <input type="password" name="senha" class="form-control" th:field="*{senha}">
+            <strong th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></strong>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-6">
+            <label>Areas: <select class="form-control" th:field="*{areas}" multiple="multiple">
+                <option th:each="opcao : ${opcoes}"
+                        th:field="*{areas}"
+                        th:value="${opcao.id}"
+                        th:text="${opcao.nome}"></option>
+            </select></label>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <button type="reset" class="btn btn-secondary">Limpar</button>
+    <a th:href="@{/avaliadores/}" class="btn btn-danger">Cancelar</a>
+</form>
+<div th:replace="fragments/rodape :: rodape"></div>
