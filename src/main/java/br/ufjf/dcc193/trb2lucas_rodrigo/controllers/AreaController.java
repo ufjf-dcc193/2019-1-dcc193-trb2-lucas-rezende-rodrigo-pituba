@@ -2,6 +2,7 @@ package br.ufjf.dcc193.trb2lucas_rodrigo.controllers;
 
 import br.ufjf.dcc193.trb2lucas_rodrigo.IdLogin;
 import br.ufjf.dcc193.trb2lucas_rodrigo.models.Area;
+import br.ufjf.dcc193.trb2lucas_rodrigo.models.Avaliador;
 import br.ufjf.dcc193.trb2lucas_rodrigo.repository.AreaRepository;
 import br.ufjf.dcc193.trb2lucas_rodrigo.repository.AvaliadorRepository;
 import br.ufjf.dcc193.trb2lucas_rodrigo.repository.TrabalhoRepository;
@@ -34,7 +35,7 @@ public class AreaController {
     public ModelAndView getMinhasAreas() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("minhas_areas");
-        mv.addObject("areas",avaliadorRepository.findById(IdLogin.idLogin).get().getAreas());
+        mv.addObject("areas",avaliadorRepository.findById(IdLogin.idLogin).orElse(new Avaliador()).getAreas());
         mv.addObject("id",IdLogin.idLogin);
         return mv;
     }
@@ -43,7 +44,7 @@ public class AreaController {
     public ModelAndView getTrabalhosPorArea(@PathVariable Integer id) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("trabalhos_por_area");
-        Area area = areaRepository.findById(id).get();
+        Area area = areaRepository.findById(id).orElse(new Area());
         mv.addObject("trabalhos", trabalhoRepository.findByArea(area));
         mv.addObject("area", area.getNome());
         mv.addObject("contador", 0);
