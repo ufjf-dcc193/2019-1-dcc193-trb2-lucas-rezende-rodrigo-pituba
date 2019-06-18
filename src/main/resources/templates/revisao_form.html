@@ -1,17 +1,17 @@
 <div th:replace="fragments/cabecalho :: cabecalho"></div>
 <div>
-    <h4>Trabalhos na Area de <span th:text="${area}"> </span></h4>
+    <h4>Trabalhos</h4>
+    <a class="btn btn-primary text-center" th:href= "@{./cadastrar}">Cadastrar Trabalho</a>
 </div>
 <br>
 <div th:if="${#lists.size(trabalhos) == 0}" class="text-center">
-    <span>Não existem trabalhos na area</span>
+    <span>Não existem trabalhos cadastrados</span>
 </div>
 <div th:if="${#lists.size(trabalhos) != 0}" class="text-center">
     <table class="table table-striped">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Numero de Avaliações</th>
             <th>Título</th>
             <th>Descrição</th>
             <th>Url</th>
@@ -22,14 +22,13 @@
         <tbody>
         <tr th:each="trabalho: ${trabalhos}" th:object="${trabalho}">
             <td th:text="*{id}"></td>
-            <td th:text="*{contador}"></td>
             <td th:text="*{titulo}"></td>
             <td th:text="*{descricao}"></td>
             <td><a th:href="*{url}" th:text="*{url}"></a></td>
             <td th:text="*{area.nome}">  </td>
             <td colspan="2">
-                <a th:unless="*{minhaRevisao}" class="btn btn-primary" th:href= "@{/revisao/avaliar/{id}(id = *{id})}">Fazer Revisão</a>
-                <a th:if="*{minhaRevisao}" class="btn btn-primary" th:href= "@{/revisao/editar/{id}/{id2}(id = *{id})(id2 = *{revisao.id})}">Editar Revisão</a>
+                <a class="btn btn-primary" th:href= "@{./editar/{id}(id = *{id})}">Editar</a>
+                <a class="btn btn-danger" th:href= "@{./excluir/{id}(id = *{id})}">Excluir</a>
             </td>
         </tr>
         </tbody>

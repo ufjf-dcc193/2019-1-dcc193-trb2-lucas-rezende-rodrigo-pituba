@@ -1,44 +1,60 @@
-package br.ufjf.dcc193.trb2lucas_rodrigo.models;
+package br.ufjf.dcc193.trb2lucas_rodrigo.DTO;
 
-import java.util.ArrayList;
-import java.util.List;
+import br.ufjf.dcc193.trb2lucas_rodrigo.models.Area;
+import br.ufjf.dcc193.trb2lucas_rodrigo.models.Revisao;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-import org.hibernate.validator.constraints.URL;
+public class TrabalhoDTO {
 
-/**
- * Trabalho
- */
-@Entity
-public class Trabalho {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "TRABALHO_ID")
     private Integer id;
-    @NotBlank
+
     private String titulo;
-    @NotBlank
+
     private String descricao;
-    @URL(message = "É necessário seguir o protocolo http")
+
     private String url;
-    @ManyToOne
+
     private Area area;
-    @OneToMany(mappedBy = "trabalho" ,fetch = FetchType.EAGER)
+
+    private long contador;
+
     private List<Revisao> revisoes;
 
-    public Trabalho() {
+    private Revisao revisao;
+
+    private boolean minhaRevisao;
+
+    public TrabalhoDTO() {
     }
 
-    public Trabalho(Integer id, String titulo, String descricao, String url, Area area) {
+    public TrabalhoDTO(Integer id, String titulo, String descricao, String url, Area area, long contador) {
         this.id = id;
         this.titulo = titulo;
         this.area = area;
         this.url = url;
+        this.contador = contador;
         this.descricao = descricao;
-        revisoes = new ArrayList<Revisao>();
+        this.minhaRevisao = false;
+        this.revisoes = new ArrayList<Revisao>();
+        this.revisao  = new Revisao();
+    }
+
+    public TrabalhoDTO(Integer id, String titulo, String descricao, String url, Area area, long contador, Collection<Revisao> revisoes) {
+        this.id = id;
+        this.titulo = titulo;
+        this.area = area;
+        this.url = url;
+        this.contador = contador;
+        this.descricao = descricao;
+        this.minhaRevisao = false;
+        this.revisoes = (List<Revisao>) revisoes;
+        this.revisao  = new Revisao();
     }
 
     /**
@@ -123,5 +139,29 @@ public class Trabalho {
      */
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public long getContador() {
+        return contador;
+    }
+
+    public void setContador(long contador) {
+        this.contador = contador;
+    }
+
+    public boolean isMinhaRevisao() {
+        return minhaRevisao;
+    }
+
+    public void setMinhaRevisao(boolean minhaRevisao) {
+        this.minhaRevisao = minhaRevisao;
+    }
+
+    public Revisao getRevisao() {
+        return revisao;
+    }
+
+    public void setRevisao(Revisao revisao) {
+        this.revisao = revisao;
     }
 }
