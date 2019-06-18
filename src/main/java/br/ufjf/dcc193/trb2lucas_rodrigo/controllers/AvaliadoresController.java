@@ -37,7 +37,7 @@ public class AvaliadoresController {
     public ModelAndView cadastrar() {
         Avaliador avaliador = new Avaliador();
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("avaliadores_form.html");
+        mv.setViewName("avaliadores_form");
         mv.addObject("avaliador",avaliador);
         mv.addObject("opcoes",areaRepository.findAll());
         return mv;
@@ -46,7 +46,7 @@ public class AvaliadoresController {
     @GetMapping("/editar/{id}")
     public ModelAndView editar(@PathVariable Integer id) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("avaliadores_form.html");
+        mv.setViewName("avaliadores_form");
         mv.addObject("avaliador",avaliadorRepository.findById(id));
         mv.addObject("opcoes",areaRepository.findAll());
         return mv;

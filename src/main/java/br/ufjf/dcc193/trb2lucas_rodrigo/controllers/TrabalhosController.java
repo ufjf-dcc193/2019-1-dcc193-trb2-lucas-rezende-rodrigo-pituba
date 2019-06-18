@@ -41,7 +41,7 @@ public class TrabalhosController {
     public ModelAndView cadastrar() {
         Trabalho trabalho = new Trabalho();
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("trabalhos_form.html");
+        mv.setViewName("trabalhos_form");
         mv.addObject("trabalho",trabalho);
         mv.addObject("opcoes",areaRepository.findAll());
         return mv;
@@ -50,7 +50,7 @@ public class TrabalhosController {
     @GetMapping("/editar/{id}")
     public ModelAndView editar(@PathVariable Integer id) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("trabalhos_form.html");
+        mv.setViewName("trabalhos_form");
         mv.addObject("trabalho",trabalhoRepository.findById(id));
         mv.addObject("opcoes",areaRepository.findAll());
         return mv;
@@ -62,6 +62,7 @@ public class TrabalhosController {
         trabalhoRepository.delete(atividade);
         return new RedirectView("/trabalhos/");
     }
+
 
     @PostMapping(value = "/manter.html")
     public ModelAndView manter(@Valid Trabalho trabalho, BindingResult binding) {
