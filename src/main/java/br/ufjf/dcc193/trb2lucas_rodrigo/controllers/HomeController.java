@@ -24,7 +24,7 @@ public class HomeController {
     @Autowired
     private AvaliadorRepository avaliadorRepository;
 
-    @RequestMapping({ "", "/", "/home.html","pagina-inicial" })
+    @RequestMapping({ "", "/", "/home" })
     public ModelAndView index() {
         List<Area> areas = areaRepository.findAll();
         if(areas.size() == 0) {
@@ -43,7 +43,6 @@ public class HomeController {
         }
         ModelAndView mv = new ModelAndView();
         mv.setViewName("home");
-        mv.addObject("nome", "Fulano");
         mv.addObject("login", IdLogin.idLogin);
         return mv;
     }
