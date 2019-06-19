@@ -19,7 +19,6 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Controller
 @RequestMapping({ "/areas" })
 public class AreaController {
@@ -37,9 +36,9 @@ public class AreaController {
     public ModelAndView getMinhasAreas() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("minhas_areas");
-        mv.addObject("areas",avaliadorRepository.findById(IdLogin.idLogin).orElse(new Avaliador()).getAreas());
-        mv.addObject("id",IdLogin.idLogin);
-        mv.addObject("login",IdLogin.idLogin);
+        mv.addObject("areas", avaliadorRepository.findById(IdLogin.idLogin).orElse(new Avaliador()).getAreas());
+        mv.addObject("id", IdLogin.idLogin);
+        mv.addObject("login", IdLogin.idLogin);
         return mv;
     }
 
@@ -49,11 +48,22 @@ public class AreaController {
         mv.setViewName("trabalhos_por_area");
         Area area = areaRepository.findById(id).orElse(new Area());
         List<TrabalhoDTO> trabalhoDTOList = revisaoRepository.findTrabalhosAvaliados(area);
-        trabalhoDTOList.addAll(revisaoRepository.findTrabalhosNaoAvaliados(area,IdLogin.idLogin));
+        List<TrabalhoDTO> trabalhoDTOList2 = revisaoRepository.findTrabalhosNaoAvaliados(area);
+        List<TrabalhoDTO> trabalhoDTOList3 = trabalhoDTOList2;
+        for (int i = 0; i < trabalhoDTOList.size(); i++) {
+            for (int j = 0; j < trabalhoDTOList2.size(); j++) {
+                if (trabalhoDTOList.get(i).getId() == trabalhoDTOList2.get(j).getId()) {
+                    trabalhoDTOList3.remove(j);
+                }
+            }
+        }
+        trabalhoDTOList.addAll(trabalhoDTOList3);
         for (TrabalhoDTO trabalhoDTO : trabalhoDTOList) {
-            trabalhoDTO.setRevisoes(revisaoRepository.findAllByTrabalho(trabalhoRepository.findById(trabalhoDTO.getId()).get()));
-            for (Revisao revisao: trabalhoDTO.getRevisoes()) {
-                if(revisao.getAvaliador().getId() == IdLogin.idLogin) {
+            trabalhoDTO.setRevisoes(
+                    revisaoRepository.findAllByTrabalho(trabalhoRepository.findById(trabalhoDTO.getId()).get()));
+            for (Revisao revisao : trabalhoDTO.getRevisoes()) {
+                if (revisao.getAvaliador().getId() == IdLogin.idLogin) {
+
                     trabalhoDTO.setMinhaRevisao(true);
                     trabalhoDTO.setRevisao(revisao);
                 }
@@ -61,7 +71,7 @@ public class AreaController {
         }
         mv.addObject("trabalhos", trabalhoDTOList);
         mv.addObject("area", area.getNome());
-        mv.addObject("login",IdLogin.idLogin);
+        mv.addObject("login", IdLogin.idLogin);
         return mv;
     }
 
