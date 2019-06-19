@@ -27,7 +27,8 @@
 </div>
 
 <form th:action="@{/revisao/manter.html/{id}(id=${trabalho.id})}" method="post" th:object="${revisao}">
-    <input type="hidden" name="trabalhoId" th:field="*{id}">
+    <input type="hidden" name="revisaoId" th:field="*{id}">
+    <input type="hidden" name="trabalho" th:field="*{trabalho}" value="${trabalho}">
     <div class=" row form-group">
         <div class="col-md-6">
             <label>Nota</label>
@@ -42,7 +43,9 @@
             <strong th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></strong>
         </div>
     </div>
-    <button th:field="*{status}" value="${T(br.ufjf.dcc193.trb2lucas_rodrigo.models.EnumStatus).AVALIADO}" type="submit" class="btn btn-success">Revisar Agora</button>
+    <button name="status" th:field="*{status}" th:value="${T(br.ufjf.dcc193.trb2lucas_rodrigo.models.EnumStatus).AFAZER}" type="submit" class="btn btn-success">Revisar Depois</button>
+    <button name="status" th:field="*{status}" th:value="${T(br.ufjf.dcc193.trb2lucas_rodrigo.models.EnumStatus).AVALIADO}" type="submit" class="btn btn-success">Revisar Agora</button>
+    <button name="status" th:field="*{status}" th:value="${T(br.ufjf.dcc193.trb2lucas_rodrigo.models.EnumStatus).IMPEDIDO}" type="submit" class="btn btn-success">Pular</button>
     <button type="reset" class="btn btn-secondary">Limpar</button>
     <a th:href="@{/areas/ver-trabalhos.html/{id}(id = ${trabalho.id})}" class="btn btn-danger">Cancelar</a>
 </form>

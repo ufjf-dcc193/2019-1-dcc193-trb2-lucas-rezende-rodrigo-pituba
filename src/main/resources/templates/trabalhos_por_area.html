@@ -29,7 +29,7 @@
             <td th:text="*{area.nome}">  </td>
             <td colspan="2">
                 <a th:unless="*{minhaRevisao}" class="btn btn-primary" th:href= "@{/revisao/avaliar/{id}(id = *{id})}">Fazer Revisão</a>
-                <a th:if="*{minhaRevisao}" class="btn btn-primary" th:href= "@{/revisao/editar/{id}/{id2}(id = *{id})(id2 = *{revisao.id})}">Editar Revisão</a>
+                <a th:if="*{minhaRevisao}" class="btn btn-primary" th:href= "@{/revisao/editar/{id}/{id2}(id = *{id},id2 = *{revisao.id})}">Editar Revisão</a>
             </td>
         </tr>
         </tbody>

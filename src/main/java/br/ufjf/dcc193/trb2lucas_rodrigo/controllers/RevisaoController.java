@@ -2,6 +2,7 @@ package br.ufjf.dcc193.trb2lucas_rodrigo.controllers;
 
 import br.ufjf.dcc193.trb2lucas_rodrigo.DTO.TrabalhoDTO;
 import br.ufjf.dcc193.trb2lucas_rodrigo.IdLogin;
+import br.ufjf.dcc193.trb2lucas_rodrigo.models.EnumStatus;
 import br.ufjf.dcc193.trb2lucas_rodrigo.models.Revisao;
 import br.ufjf.dcc193.trb2lucas_rodrigo.models.Avaliador;
 import br.ufjf.dcc193.trb2lucas_rodrigo.models.Trabalho;
@@ -12,10 +13,7 @@ import br.ufjf.dcc193.trb2lucas_rodrigo.repository.TrabalhoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -31,6 +29,8 @@ public class RevisaoController {
     private RevisaoRepository revisaoRepository;
     @Autowired
     private TrabalhoRepository trabalhoRepository;
+    @Autowired
+    private AvaliadorRepository avaliadorRepository;
 
     @GetMapping("/avaliar/{id}")
     public ModelAndView avaliar(@PathVariable Integer id) {
@@ -46,13 +46,13 @@ public class RevisaoController {
     public ModelAndView editar(@PathVariable Integer id,@PathVariable Integer id2) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("revisao_form");
-        mv.addObject("revisao",revisaoRepository.findById(id2));
+        mv.addObject("revisao",revisaoRepository.findById(id2).get());
         mv.addObject("trabalho",trabalhoRepository.findById(id).get());
         return mv;
     }
 
     @PostMapping(value = "/manter.html/{id}")
-    public ModelAndView manter(@PathVariable Integer id,@Valid Revisao revisao, BindingResult binding) {
+    public ModelAndView manter(@PathVariable Integer id, @Valid Revisao revisao, BindingResult binding) {
         ModelAndView mv = new ModelAndView();
         if (binding.hasErrors()) {
             mv.setViewName("revisao_form");
@@ -60,6 +60,8 @@ public class RevisaoController {
             mv.addObject("trabalho",trabalhoRepository.findById(id).get());
             return mv;
         }
+        revisao.setAvaliador(avaliadorRepository.getOne(IdLogin.idLogin));
+        revisao.setTrabalho(trabalhoRepository.findById(id).get());
         revisaoRepository.save(revisao);
         mv.setViewName("redirect:/");
         return mv;

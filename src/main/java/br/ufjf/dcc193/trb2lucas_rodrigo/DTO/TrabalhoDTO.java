@@ -45,18 +45,6 @@ public class TrabalhoDTO {
         this.revisao  = new Revisao();
     }
 
-    public TrabalhoDTO(Integer id, String titulo, String descricao, String url, Area area, long contador, Collection<Revisao> revisoes) {
-        this.id = id;
-        this.titulo = titulo;
-        this.area = area;
-        this.url = url;
-        this.contador = contador;
-        this.descricao = descricao;
-        this.minhaRevisao = false;
-        this.revisoes = (List<Revisao>) revisoes;
-        this.revisao  = new Revisao();
-    }
-
     /**
      * @return the area
      */

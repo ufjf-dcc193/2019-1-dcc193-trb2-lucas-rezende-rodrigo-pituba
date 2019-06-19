@@ -4,16 +4,14 @@ import br.ufjf.dcc193.trb2lucas_rodrigo.DTO.TrabalhoDTO;
 import br.ufjf.dcc193.trb2lucas_rodrigo.IdLogin;
 import br.ufjf.dcc193.trb2lucas_rodrigo.models.Area;
 import br.ufjf.dcc193.trb2lucas_rodrigo.models.Avaliador;
+import br.ufjf.dcc193.trb2lucas_rodrigo.models.EnumStatus;
 import br.ufjf.dcc193.trb2lucas_rodrigo.models.Revisao;
 import br.ufjf.dcc193.trb2lucas_rodrigo.repository.*;
 import br.ufjf.dcc193.trb2lucas_rodrigo.repository.AreaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -32,6 +30,8 @@ public class AreaController {
     private RevisaoRepository revisaoRepository;
     @Autowired
     private AvaliadorRepository avaliadorRepository;
+    @Autowired
+    private TrabalhoRepository trabalhoRepository;
 
     @GetMapping("/minhas-areas")
     public ModelAndView getMinhasAreas() {
@@ -50,6 +50,7 @@ public class AreaController {
         List<TrabalhoDTO> trabalhoDTOList = revisaoRepository.findTrabalhosAvaliados(area);
         trabalhoDTOList.addAll(revisaoRepository.findTrabalhosNaoAvaliados(area));
         for (TrabalhoDTO trabalhoDTO : trabalhoDTOList) {
+            trabalhoDTO.setRevisoes(revisaoRepository.findAllByTrabalho(trabalhoRepository.findById(trabalhoDTO.getId()).get()));
             for (Revisao revisao: trabalhoDTO.getRevisoes()) {
                 if(revisao.getAvaliador().getId() == IdLogin.idLogin) {
                     trabalhoDTO.setMinhaRevisao(true);
