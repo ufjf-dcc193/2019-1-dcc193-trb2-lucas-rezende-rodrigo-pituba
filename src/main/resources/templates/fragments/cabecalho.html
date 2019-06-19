@@ -17,11 +17,18 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/trabalhos/}">Trabalhos</a>
             </li>
-            <li class="nav-item">
+            <li th:if="${login} != 0" class="nav-item">
                 <a class="nav-link" th:href="@{/areas/minhas-areas}">Minhas Areas</a>
             </li>
             <li th:if="${login} != 0" class="nav-item">
                 <a class="nav-link" th:href="@{/revisao/por-avaliador/{id}(id = ${login})}">Revisões por Avaliador</a>
+            </li>
+            <li th:if="${login} == 0" class="nav-item mr-sm-2">
+                <a class="nav-link" th:href="@{/login/}">Logar</a>
+            </li>
+
+            <li th:if="${login} != 0" class="nav-item mr-sm-2">
+                <a class="nav-link" th:href="@{/login/sair}">Sair</a>
             </li>
         </ul>
     </div>

@@ -1,0 +1,24 @@
+<div th:replace="fragments/cabecalho :: cabecalho"></div>
+<h4>Logar</h4>
+
+<form th:action="@{/login/acessar.html}" method="post" th:object="${avaliador}">
+    <div class=" row form-group">
+        <div class="col-md-6">
+            <label>E-mail</label>
+            <input type="text" name="email" class="form-control" th:field="*{email}">
+            <strong th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></strong>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-6">
+            <label>Senha</label>
+            <input type="password" name="senha" class="form-control" th:field="*{senha}">
+            <strong th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></strong>
+        </div>
+    </div>
+    <span th:if="${loginInvalido}"> O email/senha não está correto </span>
+    <button type="submit" class="btn btn-success">Logar</button>
+    <button type="reset" class="btn btn-secondary">Limpar</button>
+    <a th:href="@{/}" class="btn btn-danger">Cancelar</a>
+</form>
+<div th:replace="fragments/rodape :: rodape"></div>
