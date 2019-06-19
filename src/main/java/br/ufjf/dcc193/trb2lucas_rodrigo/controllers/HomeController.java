@@ -1,5 +1,6 @@
 package br.ufjf.dcc193.trb2lucas_rodrigo.controllers;
 
+import br.ufjf.dcc193.trb2lucas_rodrigo.IdLogin;
 import br.ufjf.dcc193.trb2lucas_rodrigo.models.Area;
 import br.ufjf.dcc193.trb2lucas_rodrigo.models.Avaliador;
 import br.ufjf.dcc193.trb2lucas_rodrigo.repository.AreaRepository;
@@ -43,6 +44,7 @@ public class HomeController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("home");
         mv.addObject("nome", "Fulano");
+        mv.addObject("login", IdLogin.idLogin);
         return mv;
     }
 }

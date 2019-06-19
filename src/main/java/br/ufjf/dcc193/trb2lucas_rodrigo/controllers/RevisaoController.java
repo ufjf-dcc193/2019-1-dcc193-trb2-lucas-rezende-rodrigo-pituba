@@ -39,6 +39,7 @@ public class RevisaoController {
         mv.setViewName("revisao_form");
         mv.addObject("revisao",revisao);
         mv.addObject("trabalho",trabalhoRepository.findById(id).get());
+        mv.addObject("login",IdLogin.idLogin);
         return mv;
     }
 
@@ -48,6 +49,33 @@ public class RevisaoController {
         mv.setViewName("revisao_form");
         mv.addObject("revisao",revisaoRepository.findById(id2).get());
         mv.addObject("trabalho",trabalhoRepository.findById(id).get());
+        mv.addObject("login",IdLogin.idLogin);
+        return mv;
+    }
+
+    @GetMapping("/por-avaliador/{id}")
+    public ModelAndView porAvaliador(@PathVariable Integer id) {
+        ModelAndView mv = new ModelAndView();
+        Revisao revisao = new Revisao();
+        mv.setViewName("revisao_list");
+        mv.addObject("revisao", revisao);
+        mv.addObject("revisoes",revisaoRepository.findByAvaliadorIdAndStatus(id,EnumStatus.AVALIADO));
+        mv.addObject("opcoes",avaliadorRepository.findAll());
+        mv.addObject("avaliador",avaliadorRepository.findById(id).get());
+        mv.addObject("login",IdLogin.idLogin);
+        return mv;
+    }
+
+    @GetMapping("/por-avaliador/")
+    public ModelAndView porAvaliadorBusca(@RequestParam Integer id) {
+        ModelAndView mv = new ModelAndView();
+        Revisao revisao = new Revisao();
+        mv.setViewName("revisao_list");
+        mv.addObject("revisao", revisao);
+        mv.addObject("revisoes",revisaoRepository.findByAvaliadorIdAndStatus(id,EnumStatus.AVALIADO));
+        mv.addObject("opcoes",avaliadorRepository.findAll());
+        mv.addObject("avaliador",avaliadorRepository.findById(id).get());
+        mv.addObject("login",IdLogin.idLogin);
         return mv;
     }
 
@@ -58,11 +86,13 @@ public class RevisaoController {
             mv.setViewName("revisao_form");
             mv.addObject("revisao", revisao);
             mv.addObject("trabalho",trabalhoRepository.findById(id).get());
+            mv.addObject("login",IdLogin.idLogin);
             return mv;
         }
         revisao.setAvaliador(avaliadorRepository.getOne(IdLogin.idLogin));
         revisao.setTrabalho(trabalhoRepository.findById(id).get());
         revisaoRepository.save(revisao);
+        mv.addObject("login",IdLogin.idLogin);
         mv.setViewName("redirect:/");
         return mv;
     }

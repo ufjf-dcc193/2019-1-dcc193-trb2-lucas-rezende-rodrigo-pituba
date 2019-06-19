@@ -34,6 +34,7 @@ public class TrabalhosController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("trabalhos_list");
         mv.addObject("trabalhos", trabalhoRepository.findAll());
+        mv.addObject("login",IdLogin.idLogin);
         return mv;
     }
 
@@ -44,6 +45,7 @@ public class TrabalhosController {
         mv.setViewName("trabalhos_form");
         mv.addObject("trabalho",trabalho);
         mv.addObject("opcoes",areaRepository.findAll());
+        mv.addObject("login",IdLogin.idLogin);
         return mv;
     }
 
@@ -53,6 +55,7 @@ public class TrabalhosController {
         mv.setViewName("trabalhos_form");
         mv.addObject("trabalho",trabalhoRepository.findById(id));
         mv.addObject("opcoes",areaRepository.findAll());
+        mv.addObject("login",IdLogin.idLogin);
         return mv;
     }
 
@@ -71,9 +74,11 @@ public class TrabalhosController {
             mv.setViewName("trabalhos_form");
             mv.addObject("trabalho", trabalho);
             mv.addObject("opcoes",areaRepository.findAll());
+            mv.addObject("login",IdLogin.idLogin);
             return mv;
         }
         trabalhoRepository.save(trabalho);
+        mv.addObject("login",IdLogin.idLogin);
         mv.setViewName("redirect:");
         return mv;
     }

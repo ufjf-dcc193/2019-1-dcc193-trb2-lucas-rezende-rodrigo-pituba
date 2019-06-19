@@ -39,6 +39,7 @@ public class AreaController {
         mv.setViewName("minhas_areas");
         mv.addObject("areas",avaliadorRepository.findById(IdLogin.idLogin).orElse(new Avaliador()).getAreas());
         mv.addObject("id",IdLogin.idLogin);
+        mv.addObject("login",IdLogin.idLogin);
         return mv;
     }
 
@@ -60,6 +61,7 @@ public class AreaController {
         }
         mv.addObject("trabalhos", trabalhoDTOList);
         mv.addObject("area", area.getNome());
+        mv.addObject("login",IdLogin.idLogin);
         return mv;
     }
 

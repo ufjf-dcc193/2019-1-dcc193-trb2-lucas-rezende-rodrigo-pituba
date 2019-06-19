@@ -2,6 +2,7 @@ package br.ufjf.dcc193.trb2lucas_rodrigo.repository;
 
 import br.ufjf.dcc193.trb2lucas_rodrigo.DTO.TrabalhoDTO;
 import br.ufjf.dcc193.trb2lucas_rodrigo.models.Area;
+import br.ufjf.dcc193.trb2lucas_rodrigo.models.EnumStatus;
 import br.ufjf.dcc193.trb2lucas_rodrigo.models.Revisao;
 import br.ufjf.dcc193.trb2lucas_rodrigo.models.Trabalho;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +20,6 @@ public interface RevisaoRepository extends JpaRepository<Revisao, Integer> {
     List<TrabalhoDTO> findTrabalhosNaoAvaliados(@Param("area") Area area);
 
     List<Revisao> findAllByTrabalho(Trabalho trabalho);
+
+    List<Revisao> findByAvaliadorIdAndStatus(Integer id, EnumStatus enumStatus);
 }

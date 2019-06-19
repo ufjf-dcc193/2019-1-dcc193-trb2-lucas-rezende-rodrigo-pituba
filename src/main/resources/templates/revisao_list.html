@@ -1,0 +1,74 @@
+<div th:replace="fragments/cabecalho :: cabecalho"></div>
+<div>
+    <h4>Revisões</h4>
+</div>
+<br>
+
+<form th:action="@{/revisao/por-avaliador/}" th:object="${avaliador}">
+    <div class="row form-group">
+        <div class="col-md-8">
+            <label>Avaliador: <select class="form-control" th:field="*{id}">
+                <option th:each="opcao : ${opcoes}"
+                        th:field="*{id}"
+                        th:value="${opcao.id}"
+                        th:text="${opcao.nomeCompleto}"></option>
+            </select></label>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </div>
+</form>
+<div th:if="${#lists.size(revisoes) == 0}" class="text-center">
+    <span>Não existem revisões para o Avaliador</span>
+</div>
+
+<div th:if="${#lists.size(revisoes) != 0}" class="text-center">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID da Revisão</th>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Url</th>
+            <th>Area</th>
+            <th>Nota</th>
+            <th>Descrição da Avaliação</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="revisaoTabela: ${revisoes}">
+            <form th:action="@{/revisao/manter.html/{idTrabalho}(idTrabalho=${revisaoTabela.trabalho.id})}"
+                  method="post" th:object="${revisao}">
+                <input type="hidden" th:value="${revisaoTabela.id} " th:name="id" th:id="id" th:errorclass="fieldError">
+                <input type="hidden" th:value="${revisaoTabela.nota}" th:name="nota" th:id="nota"
+                       th:errorclass="fieldError"/>
+                <input type="hidden" th:value="${revisaoTabela.descricao}" th:name="descricao" th:id="descricao"
+                       th:errorclass="fieldError"/>
+                <td th:text="${revisaoTabela.id}"></td>
+                <td th:text="${revisaoTabela.trabalho.titulo}"></td>
+                <td th:text="${revisaoTabela.trabalho.descricao}"></td>
+                <td><a th:href="${revisaoTabela.trabalho.url}" th:text="${revisaoTabela.trabalho.url}"></a></td>
+                <td th:text="${revisaoTabela.trabalho.area.nome}"></td>
+                <td th:text="${revisaoTabela.nota}"></td>
+                <td th:text="${revisaoTabela.descricao}"></td>
+                <td colspan="2">
+                    <button name="status" th:field="*{status}"
+                            th:value="${T(br.ufjf.dcc193.trb2lucas_rodrigo.models.EnumStatus).AVALIADO}" type="submit"
+                            class="btn btn-success">Avaliado
+                    </button>
+                    <button name="status" th:field="*{status}"
+                            th:value="${T(br.ufjf.dcc193.trb2lucas_rodrigo.models.EnumStatus).VALIDADO}" type="submit"
+                            class="btn btn-success">Validado
+                    </button>
+                    <button name="status" th:field="*{status}"
+                            th:value="${T(br.ufjf.dcc193.trb2lucas_rodrigo.models.EnumStatus).INVALIDADO}" type="submit"
+                            class="btn btn-success">Invalidado
+                    </button>
+                </td>
+            </form>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:replace="fragments/rodape :: rodape"></div>

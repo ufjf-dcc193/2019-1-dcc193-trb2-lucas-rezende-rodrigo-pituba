@@ -1,5 +1,6 @@
 package br.ufjf.dcc193.trb2lucas_rodrigo.controllers;
 
+import br.ufjf.dcc193.trb2lucas_rodrigo.IdLogin;
 import br.ufjf.dcc193.trb2lucas_rodrigo.models.Avaliador;
 import br.ufjf.dcc193.trb2lucas_rodrigo.repository.AreaRepository;
 import br.ufjf.dcc193.trb2lucas_rodrigo.repository.AvaliadorRepository;
@@ -30,6 +31,7 @@ public class AvaliadoresController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("avaliadores_list");
         mv.addObject("avaliadores", avaliadorRepository.findAll());
+        mv.addObject("login", IdLogin.idLogin);
         return mv;
     }
 
@@ -40,6 +42,7 @@ public class AvaliadoresController {
         mv.setViewName("avaliadores_form");
         mv.addObject("avaliador",avaliador);
         mv.addObject("opcoes",areaRepository.findAll());
+        mv.addObject("login",IdLogin.idLogin);
         return mv;
     }
 
@@ -49,6 +52,7 @@ public class AvaliadoresController {
         mv.setViewName("avaliadores_form");
         mv.addObject("avaliador",avaliadorRepository.findById(id));
         mv.addObject("opcoes",areaRepository.findAll());
+        mv.addObject("login",IdLogin.idLogin);
         return mv;
     }
 
@@ -66,9 +70,11 @@ public class AvaliadoresController {
             mv.setViewName("avaliadores_form");
             mv.addObject("avaliador", avaliador);
             mv.addObject("opcoes",areaRepository.findAll());
+            mv.addObject("login",IdLogin.idLogin);
             return mv;
         }
         avaliadorRepository.save(avaliador);
+        mv.addObject("login",IdLogin.idLogin);
         mv.setViewName("redirect:");
         return mv;
     }
