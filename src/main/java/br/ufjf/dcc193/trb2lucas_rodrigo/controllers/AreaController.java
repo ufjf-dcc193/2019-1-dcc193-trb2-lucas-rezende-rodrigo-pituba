@@ -49,7 +49,7 @@ public class AreaController {
         mv.setViewName("trabalhos_por_area");
         Area area = areaRepository.findById(id).orElse(new Area());
         List<TrabalhoDTO> trabalhoDTOList = revisaoRepository.findTrabalhosAvaliados(area);
-        trabalhoDTOList.addAll(revisaoRepository.findTrabalhosNaoAvaliados(area));
+        trabalhoDTOList.addAll(revisaoRepository.findTrabalhosNaoAvaliados(area,IdLogin.idLogin));
         for (TrabalhoDTO trabalhoDTO : trabalhoDTOList) {
             trabalhoDTO.setRevisoes(revisaoRepository.findAllByTrabalho(trabalhoRepository.findById(trabalhoDTO.getId()).get()));
             for (Revisao revisao: trabalhoDTO.getRevisoes()) {
